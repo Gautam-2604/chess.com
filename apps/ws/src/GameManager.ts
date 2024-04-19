@@ -45,7 +45,7 @@ export class GameManager {
     }
 
     private addHandler(socket: WebSocket) {
-        socket.on("message", async (data) => {
+        socket.on("message", async (data: { toString: () => string; }) => {
             const message = JSON.parse(data.toString());
             if (message.type === INIT_GAME) {
 
@@ -105,7 +105,7 @@ export class GameManager {
                             }
                         })
                         const game = new Game(socket, null);
-                        gameFromDb?.moves.forEach((move) => {
+                        gameFromDb?.moves.forEach((move: any) => {
                             game.board.move(move)
                         })
                         this.games.push(game);
